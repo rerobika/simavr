@@ -47,10 +47,10 @@ typedef struct
 
 // MODIFIABLE
 static block_t map[N][M] = {
+    {TRAP, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
     {BAT, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
-    {BAT, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
-    {BAT, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
-    {BAT, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
+    {TRAP, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
+    {TRAP, VOID, VOID, VOID, VOID, VOID, VOID, VOID, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK, BLOCK},
 };
 
 // BALL
@@ -297,6 +297,38 @@ start_balls(void)
   {
     ball_map[i].angle = random_degree();
   }
+}
+
+static void
+move_bat_up(void)
+{
+  if (map[0][0] == BAT)
+  {
+    return;
+  }
+
+  for (int i = 1; i < N; i++)
+  {
+    map[i - 1][0] = map[i][0];
+  }
+
+  map[LAST_ROW][0] = TRAP;
+}
+
+static void
+move_bat_down(void)
+{
+  if (map[LAST_ROW][0] == BAT)
+  {
+    return;
+  }
+
+  for (int i = LAST_ROW; i > 0; i--)
+  {
+    map[i][0] = map[i - 1][0];
+  }
+
+  map[0][0] = TRAP;
 }
 
 int main(int argc,

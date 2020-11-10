@@ -1,3 +1,4 @@
+#if 0
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -345,3 +346,11 @@ int main(int argc,
     usleep(1000 * 250);
   }
 }
+#else
+int
+main(int argc,
+     char *argv[])
+{
+  return 0;
+}
+#endif
